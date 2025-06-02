@@ -1,19 +1,18 @@
 
-
 #[allow(dead_code)]
-trait Toint {
-fn new(string: String) -> Self;
-    fn toint(num: String) -> i32;
+pub trait ToInt {
+    fn to_int(&self) -> Result<i32, std::num::ParseIntError>;
 }
 
-impl Toint for String {
-
-    fn new(string: String) -> String {
-        return string;
+impl ToInt for &str {
+    fn to_int(&self) -> Result<i32, std::num::ParseIntError> {
+        self.parse::<i32>()
     }
+}
 
-    fn toint(num: String) -> i32 {
-        return num.parse::<i32>().unwrap();
+impl ToInt for String {
+    fn to_int(&self) -> Result<i32, std::num::ParseIntError> {
+        self.parse::<i32>()
     }
 }
 
